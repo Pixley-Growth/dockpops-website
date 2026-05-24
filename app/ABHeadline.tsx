@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 
 const VARIANTS = [
   "Better Dock folders. Finally.",
-  "Pop. Open. Done.",
-  "Your Dock does more now.",
+  "Folders on your Dock. Like iPhone.",
+  "iPhone folders. On your Mac.",
 ];
 
 const STORAGE_KEY = "dockpops_headline_variant";
