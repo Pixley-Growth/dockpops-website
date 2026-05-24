@@ -8,13 +8,13 @@ import DownloadBadge from "./DownloadBadge";
 export const metadata: Metadata = {
   openGraph: {
     title: "DockPops — The Missing Launcher for Your Dock",
-    description: "iPhone-like app folders for your Dock. Now every Pop is its own canvas — colors, custom Dock icons, and smarter SmartyPops suggestions. Native Mac app, no tracking.",
+    description: "iPhone folders for your Mac Dock. Apps, files, and folders — Quick Look any of them with Space. Multiple Dock icons, Menu Bar mode, fully keyboard-driven. Native Mac app, no tracking.",
     images: [{ url: "/preview.png", width: 1280, height: 720 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "DockPops — The Missing Launcher for Your Dock",
-    description: "iPhone-like app folders for your Dock. Now every Pop is its own canvas — colors, custom Dock icons, and smarter SmartyPops suggestions. Native Mac app, no tracking.",
+    description: "iPhone folders for your Mac Dock. Apps, files, and folders — Quick Look any of them with Space. Multiple Dock icons, Menu Bar mode, fully keyboard-driven. Native Mac app, no tracking.",
     images: ["/preview.png"],
   },
 };
@@ -64,6 +64,34 @@ export default function DockPopsPage() {
         </div>
       </section>
 
+      {/* Like iPhone home screen — MultiPops as natural extension of the iPhone analogy */}
+      <section className="relative py-20 px-6 overflow-hidden bg-black">
+        <div className="relative max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Like iPhone folders, on your home screen.
+          </h2>
+          <p className="text-lg text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+            Every Pop can be its own Dock icon. Click one to open just that Pop &mdash;
+            no carousel, no menus, straight to what you need.
+          </p>
+          {/*
+            ASSET-TODO: replace /family-photo-imac.png placeholder with a
+            small product shot showing 3 DockPops Pops as side-by-side Dock
+            icons (Office, Creative, etc.). Should be ~600px wide.
+          */}
+          <Image
+            src="/family-photo-imac.png"
+            alt="Multiple DockPops Pops, each with its own Dock icon"
+            width={1825}
+            height={1324}
+            sizes="(max-width: 768px) 100vw, 600px"
+            quality={90}
+            className="drop-shadow-2xl mx-auto opacity-80"
+            style={{ maxWidth: 600 }}
+          />
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="relative py-14 px-6 overflow-hidden">
         <div className="absolute inset-0">
@@ -100,11 +128,23 @@ export default function DockPopsPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-white/40 mt-0.5">&#10003;</span>
-                  Drag to reorder items
+                  Quick Look any file with Space
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-white/40 mt-0.5">&#10003;</span>
-                  Works with any Dock position
+                  Keyboard navigation
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-white/40 mt-0.5">&#10003;</span>
+                  Run from the Dock or Menu Bar
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-white/40 mt-0.5">&#10003;</span>
+                  Drag apps from Finder onto your Dock icon
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-white/40 mt-0.5">&#10003;</span>
+                  Reorder &amp; remove inside the Pop
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-white/40 mt-0.5">&#10003;</span>
@@ -127,11 +167,19 @@ export default function DockPopsPage() {
               <ul className="space-y-3 text-white/70">
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
-                  Up to 10 Pops
+                  Up to 20 Pops
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
-                  16 items per Pop
+                  25 items per Pop
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-orange-400 mt-0.5">&#10003;</span>
+                  Apps, files, and folders in any Pop
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-orange-400 mt-0.5">&#10003;</span>
+                  Drill into folders without leaving the Pop
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
@@ -147,10 +195,6 @@ export default function DockPopsPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
-                  Add files &amp; folders
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-orange-400 mt-0.5">&#10003;</span>
                   Open All &amp; Sort
                 </li>
                 <li className="flex items-start gap-3">
@@ -160,10 +204,6 @@ export default function DockPopsPage() {
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
                   Hide Pops from the carousel
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-orange-400 mt-0.5">&#10003;</span>
-                  Filters on Add App screen
                 </li>
               </ul>
             </div>
@@ -204,10 +244,33 @@ export default function DockPopsPage() {
                 features: [
                   { text: "Click an app icon to launch it", free: true },
                   { text: "Click a file icon to open the file", free: true },
-                  { text: "Click a folder icon to open it in Finder", free: true },
                   { text: "Files and folders show rich QuickLook thumbnail previews", free: true },
+                  { text: "Click a folder to browse its contents inside the Pop", free: false },
+                  { text: "\"Open in Finder\" cell at the end of every folder", free: false },
                   { text: "\"Open All\" launches every item in a Pop simultaneously", free: false },
                   { text: "Confirmation dialog before Opening All (global toggle)", free: false },
+                ],
+              },
+              {
+                emoji: "👀",
+                category: "Quick Look & Keyboard",
+                features: [
+                  { text: "Press Space over any file for an inline Quick Look preview", free: true },
+                  { text: "Arrow keys move between items inside a Pop", free: true },
+                  { text: "Enter opens the focused item", free: true },
+                  { text: "Esc closes the preview, drills out, or closes the Pop", free: true },
+                  { text: "Preview header — Reveal in Finder, Open in default app, Close", free: true },
+                  { text: "Popover resizes to fit folders with lots of items", free: false },
+                ],
+              },
+              {
+                emoji: "📺",
+                category: "Menu Bar Mode",
+                features: [
+                  { text: "Run DockPops from the menu bar instead of the Dock", free: true },
+                  { text: "Choose: a click opens your Pop carousel, or a quick menu", free: true },
+                  { text: "Per-Pop color extends through the menu-bar popover", free: true },
+                  { text: "Companion Poplets open instantly — no Dock flash", free: true },
                 ],
               },
               {
@@ -238,8 +301,8 @@ export default function DockPopsPage() {
                   { text: "Show up to 6 apps", free: true },
                   { text: "Navigation arrows and clickable page dots", free: true },
                   { text: "Change animation speed (Slow / Medium / Fast)", free: true },
-                  { text: "Swipe between 10 Pops", free: false },
-                  { text: "Show up to 16 apps, files or folders", free: false },
+                  { text: "Swipe between 20 Pops", free: false },
+                  { text: "Show up to 25 apps, files or folders", free: false },
                   { text: "Sort items Alphabetically, by Most Used or Recently Added", free: false },
                 ],
               },
@@ -247,9 +310,13 @@ export default function DockPopsPage() {
                 emoji: "🤏",
                 category: "Drag & <s>Drop</s> Pop",
                 features: [
-                  { text: "Drag apps, files, or folders from Finder into the Pop setup window", free: true },
-                  { text: "Drop files or apps onto the Dock icon to add to a Pop", free: true },
-                  { text: "Pop picker when multiple Pops exist", free: false },
+                  { text: "Drag apps from Finder onto the DockPops icon to add to the active Pop", free: true },
+                  { text: "Drag onto a MultiPops icon to add to that specific Pop", free: true },
+                  { text: "Reorder items inside an open Pop by dragging — no Organizer needed", free: true },
+                  { text: "Remove items by dragging them off the Pop popover", free: true },
+                  { text: "Save links from any app via the Share extension", free: true },
+                  { text: "Drag files and folders from Finder (premium content types)", free: false },
+                  { text: "Pop picker when dragging into multiple Pops", free: false },
                   { text: "Drag multiple items from Finder at once", free: false },
                 ],
               },
@@ -292,6 +359,8 @@ export default function DockPopsPage() {
                 emoji: "✨",
                 category: "And More",
                 features: [
+                  { text: "Now in German and Spanish", free: true },
+                  { text: "Built-in Help guide, right inside the app", free: true },
                   { text: "Easy onboarding with starter Pop templates", free: true },
                   { text: "Right-click actions on Dock icon", free: true },
                   { text: "Reduce Motion respected — no spring animations", free: true },
