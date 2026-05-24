@@ -484,7 +484,11 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "What's the difference between DockPops and macOS Dock folders (Stacks)?",
-    a: "macOS Stacks show a single folder's contents in a fan or grid. DockPops gives you named, curated groups of apps, files, AND folders — multiple of them, swipeable from a single Dock icon, with Quick Look previews and keyboard navigation. Think iPhone home-screen folders, in your Mac Dock.",
+    a: "Stacks just show what's inside a real folder on disk — useful for Downloads, awkward for grouping apps by intent. You can't easily build \"my Office apps\" or \"my Creative apps\" without making throwaway folders of aliases. DockPops lets you curate Pops by use case: drag any mix of apps, files, and folders into a Pop, name it, and access it from your Dock. Multiple Pops, swipeable, with Quick Look and keyboard navigation built in.",
+  },
+  {
+    q: "Is DockPops a replacement for Launchpad?",
+    a: "Yes — and macOS 26 (Tahoe) removed Launchpad, leaving a lot of users without it. DockPops is the natural successor: same one-click access from your Dock, but with curated Pops you build yourself instead of an automatic grid of every app on your system. Add just the apps you actually use, plus files and folders, and swipe between Pops. Works on macOS 14, 15, and 26.",
   },
   {
     q: "How is DockPops different from Alfred, Raycast, or Spotlight?",
