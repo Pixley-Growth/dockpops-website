@@ -30,6 +30,7 @@ export default function DockPopsPage() {
             <a href="#" className="text-white font-bold text-sm tracking-tight mr-2">DockPops</a>
             <a href="#pricing" className="text-white/50 hover:text-white/80 transition-colors">Pricing</a>
             <a href="#features" className="text-white/50 hover:text-white/80 transition-colors">Features</a>
+            <a href="#faq" className="text-white/50 hover:text-white/80 transition-colors">FAQ</a>
             <a href="#support" className="text-white/50 hover:text-white/80 transition-colors">Support</a>
           </div>
           <DownloadBadge location="nav" className="h-7 w-auto" height={36} width={120} />
@@ -420,6 +421,12 @@ export default function DockPopsPage() {
       {/* Feature Carousel — Here a Pop, there a Pop */}
       <FeatureCarousel />
 
+      {/* FAQ — frequently asked questions, also SEO surface for comparison /
+          privacy / pricing queries. Native <details>/<summary> accordion so
+          screen readers + Google handle it without JS. FAQPage JSON-LD below
+          enables rich-snippet display on search results. */}
+      <FAQSection />
+
       {/* Support */}
       <section id="support" className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
@@ -440,6 +447,7 @@ export default function DockPopsPage() {
       </section>
 
       {/* Footer */}
+      {/* (FAQSection is rendered above, between FeatureCarousel and Support) */}
       <footer className="py-12 px-6 border-t border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm text-white/50">&copy; {new Date().getFullYear()} Applacat LLC. All rights reserved.</span>
@@ -451,5 +459,115 @@ export default function DockPopsPage() {
       </footer>
 
     </div>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────
+// FAQ Section
+// ───────────────────────────────────────────────────────────────────────
+//
+// 8 questions covering the high-traffic search-intent surface:
+// Companion explainer, Dock folder comparison, competitor comparison
+// (Alfred/Raycast/Spotlight), pricing, privacy, tier gating, SmartyPops,
+// macOS support.
+//
+// Native <details>/<summary> accordions — no JS state, screen-reader-
+// friendly by default, Google rich-snippet-compatible.
+//
+// FAQPage JSON-LD inline as a <script type="application/ld+json"> so Google
+// can show the questions as rich snippets in search results.
+
+const FAQ_ITEMS: { q: string; a: string }[] = [
+  {
+    q: "Why do I need a Companion app for DockPops?",
+    a: "macOS doesn't allow a single sandboxed app to add more than one Dock icon — it's an App Store security rule, not a DockPops limitation. DockPops Companion is a free sibling app whose only job is to be those extra Dock icons. Install one per Pop, and each Companion becomes a real Dock tile that opens its Pop instantly. The main DockPops app runs everything; Companion just fills the gap macOS can't.",
+  },
+  {
+    q: "What's the difference between DockPops and macOS Dock folders (Stacks)?",
+    a: "macOS Stacks show a single folder's contents in a fan or grid. DockPops gives you named, curated groups of apps, files, AND folders — multiple of them, swipeable from a single Dock icon, with Quick Look previews and keyboard navigation. Think iPhone home-screen folders, in your Mac Dock.",
+  },
+  {
+    q: "How is DockPops different from Alfred, Raycast, or Spotlight?",
+    a: "Alfred, Raycast, and Spotlight are hotkey-driven search overlays — invisible until you summon them. DockPops sits in your Dock, always visible. You curate Pops (named buckets of apps, files, and folders) instead of searching. Different mental model: pre-organized one click away, not search-and-find. Many users keep both.",
+  },
+  {
+    q: "What do I get for $9.99?",
+    a: "One-time purchase, no subscription. Premium unlocks up to 20 Pops with 25 items each, files and folders in any Pop, folder browsing, custom Dock icons per Pop, SmartyPops AI suggestions, sort modes, Pop Out floating windows, and more. Free DockPops gives you 2 Pops with 6 apps each — enough to try the core feel.",
+  },
+  {
+    q: "Does DockPops collect data about me?",
+    a: "No. Zero analytics, zero tracking, no network access. Everything runs locally on your Mac, fully sandboxed. SmartyPops AI suggestions run on-device via Apple Intelligence — nothing leaves your machine. The Companion app talks to DockPops locally through a shared container; no servers, no telemetry.",
+  },
+  {
+    q: "Can I add files and folders to the free version?",
+    a: "Free DockPops supports apps. Files, folders, and folder browsing require Premium. The free tier is designed to let you try the core idea — pop, click an app, done — with 2 Pops of up to 6 apps each.",
+  },
+  {
+    q: "What is SmartyPops?",
+    a: "SmartyPops is on-device AI that suggests apps you might want in each Pop, based on what's already there and how you use your Mac. It runs entirely on your machine via Apple Intelligence — no cloud, no data sharing. Requires macOS 26 or later and Apple Intelligence-compatible hardware. Premium-tier feature.",
+  },
+  {
+    q: "What macOS versions does DockPops support?",
+    a: "DockPops requires macOS Sonoma (14) or later. The app supports macOS 14, 15, and 26, with features like Quick Look, Liquid Glass UI elements, and Apple Intelligence integration matched to the system version. SmartyPops on-device AI requires macOS 26 or later.",
+  },
+];
+
+function FAQSection() {
+  // Schema.org FAQPage JSON-LD — Google uses this to show questions as
+  // rich snippets in search results. Plain object → JSON.stringify in a
+  // <script type="application/ld+json">.
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
+  return (
+    <section id="faq" className="py-24 px-6 bg-black">
+      {/* JSON-LD for Google FAQ rich snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }}
+      />
+
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-3">
+          Frequently asked questions
+        </h2>
+        <p className="text-lg text-white/50 text-center mb-12">
+          Common questions about DockPops, the Companion app, pricing, and privacy.
+        </p>
+
+        <div className="space-y-3">
+          {FAQ_ITEMS.map((item, i) => (
+            <details
+              key={i}
+              className="group bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden"
+            >
+              <summary className="cursor-pointer px-5 py-4 flex items-start gap-4 hover:bg-white/[0.03] transition-colors list-none">
+                <span className="flex-1 text-left text-base md:text-lg font-medium text-white pr-2">
+                  {item.q}
+                </span>
+                <span className="shrink-0 mt-1 text-white/40 group-open:rotate-180 transition-transform">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 5l4 4 4-4" />
+                  </svg>
+                </span>
+              </summary>
+              <div className="px-5 pb-5 pt-1 text-[15px] leading-relaxed text-white/65">
+                {item.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
