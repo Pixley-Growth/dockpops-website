@@ -232,12 +232,10 @@ export default function DockPopsPage() {
                 emoji: "🔗",
                 category: "Multiple Dock Icons",
                 features: [
-                  { text: "Every Pop auto-registers as a Siri & Spotlight shortcut", free: true },
-                  { text: "\"Show [Pop Name] in DockPops\" works from Siri, Spotlight, and Shortcuts", free: true },
-                  { text: "Powered by the free DockPops Companion app — pin any Pop as its own Dock icon", free: false },
-                  { text: "Or set up via Shortcuts.app — no Companion needed", free: false },
-                  { text: "4-step guided setup walkthrough", free: false },
-                  { text: "Dynamic Icon works on every linked Pop", free: false },
+                  { text: "Every Pop becomes a Siri & Spotlight shortcut — \"Show [Pop Name] in DockPops\"", free: true },
+                  { text: "Pin Pops to your Dock via the free DockPops Companion app (recommended)", free: true },
+                  { text: "Or via macOS Shortcuts — guided 4-step walkthrough in the app", free: true },
+                  { text: "Dynamic Icon works on every linked Pop", free: true },
                 ],
               },
               {
