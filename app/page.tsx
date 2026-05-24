@@ -488,7 +488,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Is DockPops a replacement for Launchpad?",
-    a: "Yes — and macOS 26 (Tahoe) removed Launchpad, leaving a lot of users without it. DockPops is the natural successor: same one-click access from your Dock, but with curated Pops you build yourself instead of an automatic grid of every app on your system. Add just the apps you actually use, plus files and folders, and swipe between Pops. Works on macOS 14, 15, and 26.",
+    a: "macOS 26 (Tahoe) removed Launchpad. DockPops covers a similar use case — a grid of apps you click from your Dock — but you build each Pop yourself: pick the apps, files, and folders, name it, and add as many Pops as you want. Multiple Pops, swipeable. Works on macOS 14, 15, and 26.",
   },
   {
     q: "How is DockPops different from Alfred, Raycast, or Spotlight?",
@@ -504,7 +504,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Can I add files and folders to the free version?",
-    a: "Free DockPops supports apps. Files, folders, and folder browsing require Premium. The free tier is designed to let you try the core idea — pop, click an app, done — with 2 Pops of up to 6 apps each.",
+    a: "Adding files and folders to a Pop is a Premium feature — the free tier supports adding apps only. Once a file is in a Pop, opening it and Quick Look preview work the same on either tier; the gate is on the \"add\" action, not on file use. Free DockPops gives you 2 Pops with up to 6 apps each.",
   },
   {
     q: "What is SmartyPops?",
