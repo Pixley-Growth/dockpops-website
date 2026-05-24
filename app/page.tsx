@@ -184,7 +184,7 @@ export default function DockPopsPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
-                  Custom Dock icon per Pop
+                  Customize each Pop&apos;s Dock icon (color, grid density, variant)
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-orange-400 mt-0.5">&#10003;</span>
