@@ -222,20 +222,21 @@ export default function DockPopsPage() {
                 features: [
                   { text: "Click the DockPops icon to open a popover of apps and files", free: true },
                   { text: "Pops work with Dock on bottom, left, or right side of screen", free: true },
-                  { text: "Dynamic Icon — Dock icon shows a live grid of your active Pop's apps", free: false },
+                  { text: "Dynamic Icon — Dock icon shows a live grid of your active Pop's apps", free: true },
                   { text: "Adjustable grid density (Auto / 2×2 / 3×3 / 4×4)", free: false },
-                  { text: "5 premium app icon variants (Blue, Teal, Violet, Graphite, Amber)", free: false },
+                  { text: "4 premium app icon variants — Amber, Blue, Slate, Violet", free: false },
                 ],
               },
               {
                 emoji: "🔗",
-                category: "Shortcuts & MultiPops",
+                category: "Multiple Dock Icons",
                 features: [
                   { text: "Every Pop auto-registers as a Siri & Spotlight shortcut", free: true },
                   { text: "\"Show [Pop Name] in DockPops\" works from Siri, Spotlight, and Shortcuts", free: true },
-                  { text: "MultiPops — give each Pop its own Dock icon via Shortcuts", free: false },
-                  { text: "4-step guided MultiPops setup walkthrough", free: false },
-                  { text: "Dynamic Icon support for Linked Pops", free: false },
+                  { text: "Powered by the free DockPops Companion app — pin any Pop as its own Dock icon", free: false },
+                  { text: "Or set up via Shortcuts.app — no Companion needed", free: false },
+                  { text: "4-step guided setup walkthrough", free: false },
+                  { text: "Dynamic Icon works on every linked Pop", free: false },
                 ],
               },
               {
@@ -248,7 +249,7 @@ export default function DockPopsPage() {
                   { text: "Click a folder to browse its contents inside the Pop", free: false },
                   { text: "\"Open in Finder\" cell at the end of every folder", free: false },
                   { text: "\"Open All\" launches every item in a Pop simultaneously", free: false },
-                  { text: "Confirmation dialog before Opening All (global toggle)", free: false },
+                  { text: "Arm-then-confirm step before Open All (global toggle)", free: false },
                 ],
               },
               {
@@ -304,6 +305,7 @@ export default function DockPopsPage() {
                   { text: "Swipe between 20 Pops", free: false },
                   { text: "Show up to 25 apps, files or folders", free: false },
                   { text: "Sort items Alphabetically, by Most Used or Recently Added", free: false },
+                  { text: "Hide Pops from the carousel — keep them as Dock icons only", free: false },
                 ],
               },
               {
@@ -311,7 +313,8 @@ export default function DockPopsPage() {
                 category: "Drag & <s>Drop</s> Pop",
                 features: [
                   { text: "Drag apps from Finder onto the DockPops icon to add to the active Pop", free: true },
-                  { text: "Drag onto a MultiPops icon to add to that specific Pop", free: true },
+                  { text: "Drag onto any Pop's Dock icon to add to that specific Pop", free: true },
+                  { text: "Spring-load — drag-hover a Pop's icon to open it, then drop inside", free: true },
                   { text: "Reorder items inside an open Pop by dragging — no Organizer needed", free: true },
                   { text: "Remove items by dragging them off the Pop popover", free: true },
                   { text: "Save links from any app via the Share extension", free: true },
