@@ -22,15 +22,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/connected",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=300, stale-while-revalidate=86400",
-          },
-        ],
-      },
-      {
         source: "/:path*",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
@@ -45,6 +36,18 @@ const nextConfig: NextConfig = {
             value: "max-age=31536000; includeSubDomains",
           },
         ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        // The Connected-podcast promo landing page is retired. Send it home.
+        // Temporary (307) on purpose: the URL can be revived for a future
+        // promo without browsers having permanently cached the redirect.
+        source: "/connected",
+        destination: "/",
+        permanent: false,
       },
     ];
   },
