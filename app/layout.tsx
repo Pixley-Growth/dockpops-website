@@ -4,9 +4,13 @@ import QAOverlay from "./QAOverlay";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  // Absolute base so OpenGraph/Twitter images (e.g. "/preview.png") resolve to
+  // real URLs in social/iMessage cards instead of localhost.
+  metadataBase: new URL("https://dockpops.com"),
   title: "DockPops — The Missing App Launcher for Your Dock",
   description:
     "Swipeable app groups in your Dock. Organize apps, files, and folders into named Pops. SmartyPops suggests groups for you. Native Mac app, no tracking, fully sandboxed.",
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
@@ -16,7 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head />
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-DTCD5Q6KTJ"
         strategy="afterInteractive"
@@ -34,7 +37,9 @@ export default function RootLayout({
         style={{ fontFamily: "ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, system-ui, sans-serif" }}
       >
         {children}
-        <QAOverlay />
+        {/* Dev-only QA annotation tool — never mounts in production (no
+            global listeners / localStorage shipped to visitors). */}
+        {process.env.NODE_ENV === "development" && <QAOverlay />}
       </body>
     </html>
   );

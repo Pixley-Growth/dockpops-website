@@ -55,7 +55,7 @@ export default function DockPopsPage() {
           </p>
           <Image
             src="/family-photo-imac.png"
-            alt="DockPops in action — Pop organizer with sidebar, App Browser, Dynamic Icon in the Dock, and MultiPops"
+            alt="DockPops in action — Pop organizer with sidebar, App Browser, Dynamic Icon in the Dock, and Multiple Dock Icons"
             width={1825}
             height={1324}
             sizes="(max-width: 768px) 100vw, 768px"
@@ -65,7 +65,7 @@ export default function DockPopsPage() {
         </div>
       </section>
 
-      {/* Like iPhone home screen — MultiPops as natural extension of the iPhone analogy */}
+      {/* Like iPhone home screen — Multiple Dock Icons as natural extension of the iPhone analogy */}
       <section className="relative py-20 px-6 overflow-hidden bg-black">
         <div className="relative max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -280,7 +280,7 @@ export default function DockPopsPage() {
                   {
                     title: "🧠 SmartyPops",
                     features: [
-                      "Swipe, dismiss, and regenerate SmartiePop previews",
+                      "Swipe, dismiss, and regenerate SmartyPop previews",
                       "Save SmartyPop suggestions to your Pops",
                     ],
                   },

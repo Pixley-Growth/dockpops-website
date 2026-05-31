@@ -374,8 +374,10 @@ export default function HeroDemo({ easterEgg = false }: { easterEgg?: boolean } 
     };
   }, [handleDragMove, handleDragEnd]);
 
-  /* Dev tool: Ctrl+Shift+P copies window positions to clipboard */
+  /* Dev tool: Ctrl+Shift+P copies window positions to clipboard.
+     Dev-only — no global keydown listener or console output ships to visitors. */
   useEffect(() => {
+    if (process.env.NODE_ENV !== "development") return;
     const handler = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.shiftKey && e.key === "P") {
         e.preventDefault();
