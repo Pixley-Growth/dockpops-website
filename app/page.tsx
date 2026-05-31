@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import HeroDemo from "./HeroDemo";
-import FeatureCarousel from "./FeatureCarousel";
-import ABHeadline from "./ABHeadline";
+import FeatureStory from "./FeatureStory";
 import DownloadBadge from "./DownloadBadge";
 
 export const metadata: Metadata = {
@@ -42,56 +41,10 @@ export default function DockPopsPage() {
         <HeroDemo />
       </section>
 
-      {/* Use Pops to open Anything */}
-      <section id="features" className="relative py-24 px-6 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src="/bg-tangerine.jpg" alt="" fill sizes="100vw" quality={85} className="object-cover" />
-          <div className="absolute inset-0 bg-black/30" />
-        </div>
-        <div className="relative max-w-3xl mx-auto text-center">
-          <ABHeadline className="text-4xl md:text-5xl font-bold mb-6" />
-          <p className="text-xl font-bold text-white leading-relaxed mb-10 max-w-md mx-auto">
-            DockPops put iPhone folders in your Dock. Your apps, files, and folders — a click away.
-          </p>
-          <Image
-            src="/family-photo-imac.png"
-            alt="DockPops in action — Pop organizer with sidebar, App Browser, Dynamic Icon in the Dock, and Multiple Dock Icons"
-            width={1825}
-            height={1324}
-            sizes="(max-width: 768px) 100vw, 768px"
-            quality={90}
-            className="drop-shadow-2xl"
-          />
-        </div>
-      </section>
-
-      {/* Like iPhone home screen — Multiple Dock Icons as natural extension of the iPhone analogy */}
-      <section className="relative py-20 px-6 overflow-hidden bg-black">
-        <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Like iPhone folders, on your home screen.
-          </h2>
-          <p className="text-lg text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
-            Every Pop can be its own Dock icon. Click one to open just that Pop &mdash;
-            no carousel, no menus, straight to what you need.
-          </p>
-          {/*
-            ASSET-TODO: replace /family-photo-imac.png placeholder with a
-            small product shot showing 3 DockPops Pops as side-by-side Dock
-            icons (Office, Creative, etc.). Should be ~600px wide.
-          */}
-          <Image
-            src="/family-photo-imac.png"
-            alt="Multiple DockPops Pops, each with its own Dock icon"
-            width={1825}
-            height={1324}
-            sizes="(max-width: 768px) 100vw, 600px"
-            quality={90}
-            className="drop-shadow-2xl mx-auto opacity-80"
-            style={{ maxWidth: 600 }}
-          />
-        </div>
-      </section>
+      {/* Feature Story — alive headline features (replaced the old flat product
+          shots + the 200-line spec list). The 50+ list now lives collapsed in
+          the Pricing section below. */}
+      <FeatureStory />
 
       {/* Pricing */}
       <section id="pricing" className="relative py-14 px-6 overflow-hidden">
@@ -213,9 +166,16 @@ export default function DockPopsPage() {
           {/* Shared CTA below pricing cards */}
           <DownloadBadge location="pricing" className="h-12 w-auto mx-auto mb-12" height={48} width={160} />
 
-          {/* Full feature catalog */}
-          <h3 className="text-lg font-semibold text-white/50 text-center mb-6">50+ features and counting</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+          {/* Full feature catalog — collapsed by default so it informs without
+              dominating; content stays in the DOM (SEO + screen readers). */}
+          <details className="group text-left mt-2">
+            <summary className="cursor-pointer list-none text-center text-sm font-semibold text-white/50 hover:text-white/80 transition-colors select-none">
+              <span className="inline-flex items-center gap-1.5">
+                50+ more features, if you read the whole menu
+                <svg className="w-3.5 h-3.5 transition-transform group-open:rotate-180" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5l3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+            </summary>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-left mt-6">
             {[
               {
                 emoji: "🖱️",
@@ -411,13 +371,14 @@ export default function DockPopsPage() {
               </div>
             ))}
           </div>
+          </details>
 
 
         </div>
       </section>
 
-      {/* Feature Carousel — Here a Pop, there a Pop */}
-      <FeatureCarousel />
+      {/* (Feature Carousel removed — its features absorbed into FeatureStory;
+          the hero stays the page's only swipeable carousel, which keeps it special.) */}
 
       {/* FAQ — frequently asked questions, also SEO surface for comparison /
           privacy / pricing queries. Native <details>/<summary> accordion so
