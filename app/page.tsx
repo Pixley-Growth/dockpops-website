@@ -3,6 +3,7 @@ import Image from "next/image";
 import HeroDemo from "./HeroDemo";
 import FeatureStory from "./FeatureStory";
 import DownloadBadge from "./DownloadBadge";
+import DirectDownloadButton from "./DirectDownloadButton";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -32,7 +33,10 @@ export default function DockPopsPage() {
             <a href="#faq" className="text-white/50 hover:text-white/80 transition-colors">FAQ</a>
             <a href="#support" className="text-white/50 hover:text-white/80 transition-colors">Support</a>
           </div>
-          <DownloadBadge location="nav" className="h-7 w-auto" height={36} width={120} />
+          <div className="flex items-center gap-2">
+            <DownloadBadge location="nav" className="h-7 w-auto" height={36} width={120} />
+            <DirectDownloadButton location="nav" size="sm" />
+          </div>
         </div>
       </nav>
 
@@ -163,8 +167,11 @@ export default function DockPopsPage() {
             </div>
           </div>
 
-          {/* Shared CTA below pricing cards */}
-          <DownloadBadge location="pricing" className="h-12 w-auto mx-auto mb-12" height={48} width={160} />
+          {/* Shared CTA below pricing cards — App Store + direct .dmg, equal weight */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+            <DownloadBadge location="pricing" className="h-12 w-auto" height={48} width={160} />
+            <DirectDownloadButton location="pricing" size="lg" />
+          </div>
 
 
 
