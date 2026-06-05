@@ -63,6 +63,10 @@
   border-color: rgba(255, 255, 255, 0.45);
 }
 
+/* ── Feature Story: video clip vs reduced-motion still ── */
+/* Default: clip plays, still hidden. Reduced-motion flips both (block below). */
+.motion-still { display: none; }
+
 /* ── Feature Story: idle drift (subtle "breathing") ── */
 @keyframes drift {
   0%, 100% { transform: translateY(0); }
@@ -77,4 +81,7 @@
   .glass-lift:hover { transform: none; }
   .drift { animation: none; }
   .animate-fadeIn, .animate-windowOpen { animation: none; }
+  /* Swap autoplay clips for their poster still. */
+  .motion-clip { display: none; }
+  .motion-still { display: block; }
 }
