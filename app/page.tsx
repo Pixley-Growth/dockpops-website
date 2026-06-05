@@ -239,8 +239,8 @@ export default function DockPopsPage() {
 
 const FAQ_ITEMS: { q: string; a: string }[] = [
   {
-    q: "Why do I need a Companion app for DockPops?",
-    a: "macOS doesn't allow a single sandboxed app to add more than one Dock icon — it's an App Store security rule, not a DockPops limitation. DockPops Companion is a free sibling app whose only job is to be those extra Dock icons. Install one per Pop, and each Companion becomes a real Dock tile that opens its Pop instantly. The main DockPops app runs everything; Companion just fills the gap macOS can't.",
+    q: "Do I need the Companion app for multiple Dock icons?",
+    a: "Only with the Mac App Store version. App Store apps are sandboxed, and macOS won't let a single sandboxed app add more than one Dock icon — so DockPops Companion, a free sibling app, provides each extra Dock tile (install one per Pop). The direct download isn't sandboxed, so it creates the extra Dock icons itself — no Companion app needed. Either way, the main DockPops app runs everything.",
   },
   {
     q: "What's the difference between DockPops and macOS Dock folders (Stacks)?",

@@ -28,7 +28,7 @@ export default function DirectDownloadButton({
   return (
     <a
       href={DMG_URL}
-      aria-label="Download the DockPops .dmg directly"
+      aria-label="Direct Download for macOS"
       onClick={() => {
         window.gtag?.("event", "download_click", { location, method: "direct_dmg" });
       }}
@@ -51,11 +51,8 @@ export default function DirectDownloadButton({
           strokeLinejoin="round"
         />
       </svg>
-      <span className="flex flex-col text-left leading-none">
-        <span className={lg ? "text-[10px]" : "text-[8px]"}>Download directly</span>
-        <span className={`font-semibold ${lg ? "text-[17px] mt-0.5" : "text-[11px]"}`}>
-          macOS .dmg
-        </span>
+      <span className={`font-semibold ${lg ? "text-[15px]" : "text-[12px]"}`}>
+        Direct Download
       </span>
     </a>
   );
