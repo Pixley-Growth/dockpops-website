@@ -212,7 +212,7 @@ export default function DockPopsPage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm text-white/50">&copy; {new Date().getFullYear()} Applacat LLC. All rights reserved.</span>
           <div className="flex items-center gap-6 text-sm text-white/50">
-            <a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#support" className="hover:text-white transition-colors">Support</a>
           </div>
         </div>
