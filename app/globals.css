@@ -35,3 +35,53 @@
 .snap-x::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Feature Story: scroll-reveal ── */
+/* Calm decelerate entrance; text lands first, media follows (delay set inline). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Feature Story: tactile glass-card hover ── */
+/* Elastic lift (reuses the hero's windowOpen spring curve) — the card feels
+   like it has surface tension; the border brightens as if warming under touch. */
+.glass-lift {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease, border-color 0.35s ease;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.45);
+}
+.glass-lift:hover {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 32px 70px -10px rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Feature Story: video clip vs reduced-motion still ── */
+/* Default: clip plays, still hidden. Reduced-motion flips both (block below). */
+.motion-still { display: none; }
+
+/* ── Feature Story: idle drift (subtle "breathing") ── */
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.drift { animation: drift 7s ease-in-out infinite; }
+
+/* ── Accessibility: honor Reduce Motion (mirrors the app's MotionSafeAnimation) ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .glass-lift { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+  .glass-lift:hover { transform: none; }
+  .drift { animation: none; }
+  .animate-fadeIn, .animate-windowOpen { animation: none; }
+  /* Swap autoplay clips for their poster still. */
+  .motion-clip { display: none; }
+  .motion-still { display: block; }
+}

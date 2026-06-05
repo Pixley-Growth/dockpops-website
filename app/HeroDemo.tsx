@@ -253,7 +253,7 @@ function MacWindow({
 interface Win { id: string; z: number; x: number; y: number }
 
 /* ─── Main Component ─── */
-export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?: boolean; promoLink?: string } = {}) {
+export default function HeroDemo({ easterEgg = false }: { easterEgg?: boolean } = {}) {
   // openIcon = which Dock icon's popover is showing; centers on that icon
   const [openIcon, setOpenIcon] = useState<string | null>(null);
   // carouselPage = which pop the carousel is displaying (only used when openIcon === "main")
@@ -299,12 +299,10 @@ export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?:
   const [userInteracted, setUserInteracted] = useState(false);
 
   // Initial open + auto-cycle through each Dock icon
-  const ICON_CYCLE: string[] = promoLink
-    ? ["main", "connected", "work", "creative"]
-    : ["main", "work", "creative"];
+  const ICON_CYCLE: string[] = ["main", "work", "creative"];
 
   useEffect(() => {
-    const t = setTimeout(() => { setOpenIcon(promoLink ? "connected" : "main"); setHint(false); }, 1400);
+    const t = setTimeout(() => { setOpenIcon("main"); setHint(false); }, 1400);
     return () => clearTimeout(t);
   }, []);
 
@@ -376,8 +374,10 @@ export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?:
     };
   }, [handleDragMove, handleDragEnd]);
 
-  /* Dev tool: Ctrl+Shift+P copies window positions to clipboard */
+  /* Dev tool: Ctrl+Shift+P copies window positions to clipboard.
+     Dev-only — no global keydown listener or console output ships to visitors. */
   useEffect(() => {
+    if (process.env.NODE_ENV !== "development") return;
     const handler = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.shiftKey && e.key === "P") {
         e.preventDefault();
@@ -497,9 +497,8 @@ export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?:
 
           {/* Pop — absolutely positioned above dock, no layout shift */}
           {(() => {
-            const isPromo = openIcon === "connected" && !!promoLink;
-            const pop = isPromo ? null : getVisiblePop();
-            const isOpen = isPromo || !!pop;
+            const pop = getVisiblePop();
+            const isOpen = !!pop;
             const isCarousel = openIcon === "main";
             const cols = 3;
             return (
@@ -517,41 +516,21 @@ export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?:
                     border: "0.5px solid rgba(255,255,255,0.35)",
                   }}
                 >
-                  {isPromo ? (
-                    <div className="px-5 py-4 flex flex-col items-center text-center" style={{ minWidth: 220 }}>
-                      <Image
-                        src="/connected-podcast.jpg" alt=""
-                        width={200} height={200}
-                        className="w-16 h-16 rounded-xl shadow-lg mb-3"
-                      />
-                      <span className="text-[13px] font-semibold text-white/90 mb-1">Connected Listeners</span>
-                      <span className="text-[11px] text-white/60 mb-3">Get 30% off DockPops Premium</span>
+                  <div className="px-4 pt-3 pb-1.5">
+                    <span className="text-[13px] font-semibold text-white/90">{pop?.name ?? ""}</span>
+                  </div>
+                  <div className="px-3 pb-2" style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 4 }}>
+                    {pop?.apps.map(app => (
                       <button
-                        onClick={() => { window.open(atob(promoLink!), "_blank"); }}
-                        className="bg-white/20 hover:bg-white/30 text-white text-[12px] font-semibold px-4 py-1.5 rounded-full transition-colors cursor-pointer"
+                        key={app.id}
+                        onClick={() => open(app.id)}
+                        className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                       >
-                        Redeem Offer
+                        <PopIcon id={app.id} size={52} />
+                        <span className="text-[11px] text-white/80">{app.name}</span>
                       </button>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="px-4 pt-3 pb-1.5">
-                        <span className="text-[13px] font-semibold text-white/90">{pop?.name ?? ""}</span>
-                      </div>
-                      <div className="px-3 pb-2" style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 4 }}>
-                        {pop?.apps.map(app => (
-                          <button
-                            key={app.id}
-                            onClick={() => open(app.id)}
-                            className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
-                          >
-                            <PopIcon id={app.id} size={52} />
-                            <span className="text-[11px] text-white/80">{app.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
+                    ))}
+                  </div>
                   {/* Nav dots + arrows — only in carousel mode (main icon) */}
                   {isCarousel && (
                     <div className="flex items-center justify-center gap-2 px-3 pb-2.5 pt-1">
@@ -633,29 +612,7 @@ export default function HeroDemo({ easterEgg = false, promoLink }: { easterEgg?:
               <div className={`w-1 h-1 rounded-full mt-0.5 transition-colors ${openIcon === "main" ? "bg-black/60" : "bg-transparent"}`} />
             </div>
 
-            {/* Connected promo icon — only on /connected, right after main */}
-            {promoLink && (
-              <div className="p-1 flex flex-col items-center">
-                <button
-                  ref={el => { popIconRefs.current["connected"] = el; }}
-                  onClick={() => handleIconClick("connected")}
-                  className="cursor-pointer active:scale-90 transition-transform"
-                  title="Connected"
-                >
-                  <Image
-                    src="/connected-podcast.jpg" alt="Connected"
-                    width={120} height={120}
-                    sizes="40px"
-                    className="w-10 h-10"
-                    quality={90}
-                    style={{ clipPath: "url(#sq)", borderRadius: 8 }}
-                  />
-                </button>
-                <div className={`w-1 h-1 rounded-full mt-0.5 transition-colors ${openIcon === "connected" ? "bg-black/60" : "bg-transparent"}`} />
-              </div>
-            )}
-
-            {/* MultiPops — other Pops with their own Dock icons */}
+            {/* Other Pops with their own Dock icons */}
             <div className="p-1 flex flex-col items-center">
               <button
                 ref={el => { popIconRefs.current["work"] = el; }}
