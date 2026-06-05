@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import DirectDownloadButton from "./DirectDownloadButton";
 
 /* Apple squircle clip-path (objectBoundingBox) — continuous curvature corners */
 const SQUIRCLE =
@@ -463,9 +464,12 @@ export default function HeroDemo({ easterEgg = false }: { easterEgg?: boolean } 
           >
             Organize your Dock like your iPhone
           </p>
-<a href="https://apps.apple.com/us/app/dockpops/id6759999009?mt=12&ct=website_hero" className="hover:opacity-90 transition-opacity" onClick={() => { window.gtag?.('event', 'download_click', { location: 'hero' }); }}>
-            <Image src="/mac-app-store-badge.svg" alt="Download on the Mac App Store" width={200} height={60} className="h-12 w-auto" />
-          </a>
+<div className="flex flex-wrap items-center justify-center gap-3">
+            <a href="https://apps.apple.com/us/app/dockpops/id6759999009?mt=12&ct=website_hero" className="hover:opacity-90 transition-opacity" onClick={() => { window.gtag?.('event', 'download_click', { location: 'hero' }); }}>
+              <Image src="/mac-app-store-badge.svg" alt="Download on the Mac App Store" width={200} height={60} className="h-12 w-auto" />
+            </a>
+            <DirectDownloadButton location="hero" size="lg" />
+          </div>
         </div>
 
         {/* Windows */}
