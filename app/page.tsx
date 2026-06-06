@@ -118,7 +118,7 @@ export default function DockPopsPage() {
               </div>
               <p className="text-sm font-semibold text-orange-400 uppercase tracking-wider mb-2">Premium</p>
               <p className="text-3xl font-bold mb-1">
-                $9.99
+                $1.99
                 <span className="text-lg font-normal text-white/40 ml-2">one time</span>
               </p>
               <p className="text-white/50 mb-6">No subscription. Ever.</p>
@@ -255,7 +255,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
     a: "Alfred, Raycast, and Spotlight are hotkey-driven search overlays — invisible until you summon them. DockPops sits in your Dock, always visible. You curate Pops (named buckets of apps, files, and folders) instead of searching. Different mental model: pre-organized one click away, not search-and-find. Many users keep both.",
   },
   {
-    q: "What do I get for $9.99?",
+    q: "What do I get for $1.99?",
     a: "One-time purchase, no subscription. Premium unlocks up to 20 Pops with 25 items each, files and folders in any Pop, folder browsing, custom Dock icons per Pop, SmartyPops AI suggestions, sort modes, Pop Out floating windows, and more. Free DockPops gives you 2 Pops with 6 apps each — enough to try the core feel.",
   },
   {
