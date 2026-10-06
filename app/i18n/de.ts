@@ -184,4 +184,11 @@ export const de: Dict = {
     appStore: "Laden im Mac App Store",
     direct: "Direkter Download",
   },
+  // The analytics consent banner (shown in Europe) and the footer link that reopens it.
+  consent: {
+    text: "dockpops.com nutzt Google Analytics, um Besuche zu zählen und zu sehen, welche Seiten gelesen werden. Analyse-Cookies erlauben?",
+    allow: "Erlauben",
+    decline: "Ablehnen",
+    settings: "Cookie-Einstellungen",
+  },
 };

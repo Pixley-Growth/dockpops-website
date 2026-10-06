@@ -178,4 +178,11 @@ export const es: Dict = {
     appStore: "Descárgalo en el Mac App Store",
     direct: "Descarga directa",
   },
+  // The analytics consent banner (shown in Europe) and the footer link that reopens it.
+  consent: {
+    text: "dockpops.com usa Google Analytics para contar las visitas y ver qué páginas se leen. ¿Permites las cookies de análisis?",
+    allow: "Permitir",
+    decline: "Rechazar",
+    settings: "Configuración de cookies",
+  },
 };

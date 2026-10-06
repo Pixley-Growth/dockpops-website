@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ConsentSettingsLink } from "../../components/Consent";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — DockPops",
@@ -187,6 +188,12 @@ export default function PrivacyPage() {
             information, such as your IP address and browser. This applies to the
             website only — the DockPops app contains no analytics.
           </p>
+          <p>
+            Visitors in Europe are asked first, and Google Analytics doesn&apos;t
+            load until they allow it. Anyone can allow or decline analytics cookies
+            at any time with Cookie settings at the bottom of every page; the choice
+            is kept in your browser.
+          </p>
         </Section>
 
         <Section title="Changes to this policy">
@@ -214,6 +221,7 @@ export default function PrivacyPage() {
           <div className="flex items-center gap-6 text-sm text-white/50">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/#support" className="hover:text-white transition-colors">Support</Link>
+            <ConsentSettingsLink label="Cookie settings" className="hover:text-white transition-colors" />
           </div>
         </div>
       </footer>

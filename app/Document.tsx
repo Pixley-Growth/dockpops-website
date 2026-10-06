@@ -1,6 +1,8 @@
-import Script from "next/script";
 import { Nunito } from "next/font/google";
 import QAOverlay from "./QAOverlay";
+import { ConsentBanner } from "./components/Consent";
+import { CONSENT_SCRIPT } from "./consent-script";
+import type { Dict } from "./i18n/en";
 import "./globals.css";
 import "./site.css";
 
@@ -15,21 +17,17 @@ const rounded = Nunito({
   display: "swap",
 });
 
-/** The HTML document every page shares: one per language root layout, with its `lang`. */
-export default function Document({ lang, children }: { lang: string; children: React.ReactNode }) {
+/** The HTML document every page shares: one per language root layout, in its language. */
+export default function Document({ t, children }: { t: Dict; children: React.ReactNode }) {
   return (
-    <html lang={lang} className={rounded.variable}>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-DTCD5Q6KTJ" strategy="afterInteractive" />
-      <Script id="gtag-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-DTCD5Q6KTJ');
-        `}
-      </Script>
+    <html lang={t.lang} className={rounded.variable}>
+      <head>
+        {/* Consent defaults first, then Google Analytics only where it's allowed (consent-script.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_SCRIPT }} />
+      </head>
       <body className="dp">
         {children}
+        <ConsentBanner t={t.consent} privacy={t.footer.privacy} />
         {/* Dev-only QA annotation tool — never mounts in production (no
             global listeners / localStorage shipped to visitors). */}
         {process.env.NODE_ENV === "development" && <QAOverlay />}
