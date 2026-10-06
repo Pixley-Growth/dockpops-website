@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Dict } from "../../i18n/en";
 import { popBySlug } from "../../pops";
-import { PREMIUM_PRICE } from "../../config";
+import { PREMIUM_CHECKOUT_URL, PREMIUM_PRICE } from "../../config";
 import { LOCALES, homeHref } from "../../i18n/locales";
 import { ConsentSettingsLink } from "../Consent";
 import Downloads from "../Downloads";
@@ -102,6 +102,14 @@ export function Pricing({ t }: { t: Dict }) {
               <li key={item}>{item}</li>
             ))}
           </ul>
+          <p className="dp-plan-direct">
+            {/* Full-width punctuation (Japanese, Chinese) carries its own space. */}
+            {t.pricing.directLead}
+            {/[？！。]$/.test(t.pricing.directLead) ? "" : " "}
+            <a href={PREMIUM_CHECKOUT_URL}>{t.pricing.directLink}</a>
+            <br />
+            {t.pricing.directNote}
+          </p>
         </article>
       </div>
       <div className="dp-pricing-cta">

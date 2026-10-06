@@ -126,6 +126,9 @@ export const zhHans: Dict = {
       "选取每个程序坞图标显示哪些 Pop",
       "固定 Pop、“全部打开”及更多排序方式",
     ],
+    directLead: "使用直接下载版？",
+    directLink: "购买 Premium",
+    directNote: "许可证密钥会通过电子邮件发送给你。",
   },
   faq: {
     title: "有问必答。",

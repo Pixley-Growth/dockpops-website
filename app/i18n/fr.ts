@@ -123,6 +123,9 @@ export const fr: Dict = {
       "Pops épinglés, « Tout ouvrir » et d’autres ordres de tri",
       "L’Assistant (macOS 27) et les suggestions Apple Intelligence (macOS 26)",
     ],
+    directLead: "Vous utilisez le téléchargement direct ?",
+    directLink: "Acheter Premium",
+    directNote: "Votre clé de licence arrive par e-mail.",
   },
   faq: {
     title: "Vos questions, nos réponses.",

@@ -126,6 +126,9 @@ export const ja: Dict = {
       "Popの固定、「すべて開く」、さらに多くの並べ替え順序",
       "アシスタント（macOS 27）とApple Intelligenceによる提案（macOS 26）",
     ],
+    directLead: "直接ダウンロード版をお使いですか？",
+    directLink: "Premiumを購入",
+    directNote: "ライセンスキーはメールで届きます。",
   },
   faq: {
     title: "よくある質問。",

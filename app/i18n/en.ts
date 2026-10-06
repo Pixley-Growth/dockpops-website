@@ -124,6 +124,10 @@ export const en = {
       "Pin a Pop, Open All, and more sort orders",
       "The Assistant (macOS 27) and Apple Intelligence suggestions (macOS 26)",
     ],
+    // The direct download's Premium is bought on Lemon Squeezy, which emails a license key.
+    directLead: "Using the direct download?",
+    directLink: "Buy Premium",
+    directNote: "Your license key arrives by email.",
   },
   faq: {
     title: "Questions, answered.",

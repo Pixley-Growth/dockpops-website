@@ -127,6 +127,9 @@ export const de: Dict = {
       "Pops anheften, „Alles öffnen“ und weitere Sortierungen",
       "Der Assistent (macOS 27) und Vorschläge von Apple Intelligence (macOS 26)",
     ],
+    directLead: "Direkter Download?",
+    directLink: "Premium kaufen",
+    directNote: "Den Lizenzschlüssel bekommst du per E-Mail.",
   },
   faq: {
     title: "Fragen und Antworten.",
