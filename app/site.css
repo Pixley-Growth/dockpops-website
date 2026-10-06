@@ -718,6 +718,16 @@ button.dp-tile[aria-pressed="true"] .dp-dock-label { opacity: 0; }
 .dp-plain-body { margin: 18px 0 0; max-width: 52ch; font-size: 19px; line-height: 1.5; color: rgba(255, 255, 255, 0.75); }
 .dp-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+/* Japanese and Chinese headlines break only between phrases (marked with zero-width
+   spaces in the copy), never inside a word; a phrase too long for the line still wraps. */
+:lang(ja) .dp-display, :lang(zh-Hans) .dp-display { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* The language switcher, under the footer's links */
+.dp-footer-langs { display: flex; flex-wrap: wrap; gap: 6px 16px; width: 100%; justify-content: center; margin-top: 14px; font-size: 13px; }
+.dp-footer-langs a { color: rgba(255, 255, 255, 0.55); text-decoration: none; }
+.dp-footer-langs a:hover { color: #fff; }
+.dp-footer-langs a[aria-current="page"] { color: #fff; font-weight: 600; }
+
 /* Pricing */
 .dp-pricing-copy { text-align: center; max-width: none; }
 .dp-plans {

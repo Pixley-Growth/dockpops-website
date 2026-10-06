@@ -14,8 +14,19 @@ declare global {
 const DMG_URL =
   "https://github.com/Pixley-Growth/dockpops-releases/releases/latest/download/DockPops.dmg";
 
+// No storefront in the path: Apple sends each visitor to their own country's store.
 const appStoreUrl = (location: string) =>
-  `https://apps.apple.com/us/app/dockpops/id6759999009?mt=12&ct=website_${location}`;
+  `https://apps.apple.com/app/dockpops/id6759999009?mt=12&ct=website_${location}`;
+
+// Apple's badge in each language (toolbox.marketingtools.apple.com, white).
+const BADGES: Record<string, string> = {
+  en: "/mac-app-store-badge.svg",
+  de: "/badges/mac-app-store-de.svg",
+  "es-419": "/badges/mac-app-store-es-419.svg",
+  fr: "/badges/mac-app-store-fr.svg",
+  ja: "/badges/mac-app-store-ja.svg",
+  "zh-Hans": "/badges/mac-app-store-zh-Hans.svg",
+};
 
 /** The two ways to get DockPops, side by side and equal weight. */
 export default function Downloads({ t, location }: { t: Dict; location: string }) {
@@ -27,7 +38,7 @@ export default function Downloads({ t, location }: { t: Dict; location: string }
         onClick={() => window.gtag?.("event", "download_click", { location })}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/mac-app-store-badge.svg" alt={t.download.appStore} width={160} height={48} />
+        <img src={BADGES[t.lang] ?? BADGES.en} alt={t.download.appStore} width={160} height={48} />
       </a>
       <a
         className="dp-direct"

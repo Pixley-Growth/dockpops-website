@@ -10,7 +10,7 @@ export default function MenuBar({ t }: { t: Dict }) {
         <img src={dockFile("dockpops.webp")} alt="" />
         DockPops
       </a>
-      <nav className="dp-menubar-links" aria-label="Site">
+      <nav className="dp-menubar-links" aria-label={t.a11y.site}>
         <a href="#features">{t.menu.features}</a>
         <a href="#pricing">{t.menu.pricing}</a>
         <a href="#faq">{t.menu.faq}</a>

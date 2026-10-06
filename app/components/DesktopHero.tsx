@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Dict } from "../i18n/en";
+import { effectName } from "../i18n/effects";
 import { HERO_POPS, PHONE_POPS, type PopAsset } from "../pops";
 import PopClip from "./PopClip";
 import LivePop from "./LivePop";
@@ -178,7 +179,7 @@ export default function DesktopHero({ t }: { t: Dict }) {
           </div>
         )}
 
-        <nav ref={dock} className="dp-dock" aria-label="Dock">
+        <nav ref={dock} className="dp-dock" aria-label={t.a11y.dock}>
           {APPS_BEFORE.map((app) => (
             <DockApp key={app.name} name={app.name} running={app.running} />
           ))}
@@ -226,7 +227,7 @@ function DockApp({ name, running }: { name: string; running?: boolean }) {
 /** A Pop's look in one line, in the inspector's words: "List view, gradient fill, serif labels". */
 function lookLine(pop: PopAsset, t: Dict) {
   const l = t.look;
-  const fill = pop.fill === "popfx" && pop.effect ? `${l.fills.popfx} ${pop.effect}` : l.fills[pop.fill];
+  const fill = pop.fill === "popfx" && pop.effect ? `${l.fills.popfx} ${effectName(pop.effect, t.lang)}` : l.fills[pop.fill];
   return l.line
     .replace("{theme}", pop.theme)
     .replace("{view}", l.views[pop.view])
