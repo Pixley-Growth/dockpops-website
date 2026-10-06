@@ -1,0 +1,819 @@
+/* DockPops 6.0 site. The colour comes from the wallpapers and the Pops; the
+   chrome around them stays white type, macOS glass where macOS has glass
+   (menu bar, Dock, notifications), and plain white windows elsewhere. */
+
+:root {
+  --ink: #15171c;
+  --ink-2: #5d6371;
+  --paper: #ffffff;
+  --sky: #1f7af5;
+  --on-wall: #ffffff;
+  --on-wall-2: rgba(255, 255, 255, 0.86);
+  --between: #0f1116;
+
+  --font-display: ui-rounded, "SF Pro Rounded", var(--font-rounded-fallback), system-ui, sans-serif;
+  --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
+
+  --menubar-h: 30px;
+  --gutter: max(24px, calc((100vw - 1240px) / 2));
+  --dock-tile: clamp(38px, 3.8vw, 54px);
+  --dock-gap: calc(var(--dock-tile) * 0.15);
+}
+
+html {
+  background: var(--between);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body.dp {
+  margin: 0;
+  background: var(--between);
+  color: var(--on-wall);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dp :focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.dp-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 0.96;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Type on a wallpaper keeps a faint shadow so a bright patch can't swallow it. */
+.dp-on-wall {
+  text-shadow: 0 1px 2px rgba(20, 0, 40, 0.18), 0 2px 24px rgba(20, 0, 40, 0.22);
+}
+
+/* ── Menu bar: the site's navigation, as macOS draws it ─────────────────── */
+
+.dp-menubar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: var(--menubar-h);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 10px;
+  font: 500 13px/1 var(--font-text);
+  color: #fff;
+  background: rgba(24, 18, 40, 0.24);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+.dp-menubar a {
+  color: inherit;
+  text-decoration: none;
+  padding: 6px 9px;
+  border-radius: 5px;
+}
+.dp-menubar a:hover { background: rgba(255, 255, 255, 0.16); }
+.dp-menubar-app {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+}
+.dp-menubar-app img { width: 16px; height: 16px; }
+.dp-menubar-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dp-menubar a.dp-menubar-get {
+  background: #fff;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  text-shadow: none;
+}
+.dp-menubar a.dp-menubar-get:hover { background: rgba(255, 255, 255, 0.86); }
+@media (max-width: 640px) {
+  .dp-menubar-links { display: none; }
+}
+
+/* ── The desktop hero ───────────────────────────────────────────────────── */
+
+.dp-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 720px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.dp-wallpaper {
+  object-fit: cover;
+  z-index: -1;
+}
+
+.dp-hero-copy {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: calc(var(--menubar-h) + clamp(36px, 6vh, 88px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 96px);
+  row-gap: clamp(14px, 2.2vh, 24px);
+  align-items: start;
+}
+.dp-hero-brand {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+}
+.dp-hero-brand img {
+  width: clamp(56px, 5.2vw, 76px);
+  height: auto;
+  filter: drop-shadow(0 8px 18px rgba(20, 0, 60, 0.35));
+}
+.dp-hero-brand span {
+  font-size: clamp(24px, 2.2vw, 32px);
+  letter-spacing: -0.02em;
+}
+.dp-hero-title { font-size: clamp(44px, 4.6vw, 80px); }
+.dp-hero-side { padding-top: 0.4em; }
+.dp-hero-body {
+  margin: 0;
+  max-width: 38ch;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--on-wall-2);
+}
+.dp-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+.dp-badge img { display: block; height: 48px; width: auto; }
+.dp-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+  font: 600 15px/1 var(--font-text);
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+.dp-direct:hover, .dp-badge:hover { opacity: 0.9; }
+.dp-direct svg { width: 18px; height: 18px; }
+.dp-hero-note {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--on-wall-2);
+}
+.dp-hero-hint {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--on-wall);
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+.dp-hero-hint[data-hidden="true"] { opacity: 0; }
+.dp-touch-only { display: none; }
+@media (hover: none) {
+  .dp-pointer-only { display: none; }
+  .dp-touch-only { display: inline; }
+}
+
+/* The stage holds the Dock and the open Pop. */
+.dp-stage {
+  position: absolute;
+  inset: 0;
+  --pop-top: calc(var(--menubar-h) + 16px);
+  --pop-max-scale: 1;
+}
+
+.dp-pop-anchor {
+  position: absolute;
+  z-index: 3;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+}
+.dp-pop-in { animation: dp-pop-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both; transform-origin: 50% 100%; }
+@keyframes dp-pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+}
+
+/* A Pop: the capture already carries the panel's own faint shadow; a deeper
+   one under the body lifts it off a busy wallpaper. */
+.dp-pop {
+  position: relative;
+}
+.dp-pop::before {
+  content: "";
+  position: absolute;
+  inset: 3% 2.8% 2% 2.8%;
+  border-radius: 5% / 3.3%;
+  box-shadow: 0 30px 60px -18px rgba(10, 0, 30, 0.5), 0 8px 18px -6px rgba(10, 0, 30, 0.25);
+  z-index: -1;
+}
+/* A live PopFX Pop: the shader's canvas on the Pop's surface, the captured foreground
+   over it, the name on top. */
+.dp-livepop { position: relative; user-select: none; -webkit-user-select: none; }
+.dp-livepop-surface {
+  position: absolute;
+  display: block;
+  border-radius: calc(15px * var(--s, 1));
+}
+.dp-livepop-fg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.dp-livepop-name {
+  position: absolute;
+  left: 50%;
+  top: calc(15.6px * var(--s, 1));
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(3.5px * var(--s, 1));
+  font: 600 calc(11px * var(--s, 1)) / 1 var(--font-text);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.dp-livepop-name svg { width: calc(7.5px * var(--s, 1)); height: calc(4.5px * var(--s, 1)); opacity: 0.75; }
+/* The pointer works the material; a vertical swipe still scrolls the page. */
+.dp-livepop { touch-action: pan-y; }
+
+.dp-pop-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The Dock */
+.dp-dock {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--dock-gap);
+  padding: calc(var(--dock-tile) * 0.13) calc(var(--dock-tile) * 0.15) calc(var(--dock-tile) * 0.17);
+  border-radius: calc(var(--dock-tile) * 0.42);
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  backdrop-filter: blur(28px) saturate(1.8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 12px 32px rgba(20, 0, 50, 0.22);
+}
+.dp-dock-divider {
+  align-self: center;
+  width: 1px;
+  height: calc(var(--dock-tile) * 0.84);
+  margin: 0 calc(var(--dock-gap) * 0.6);
+  background: rgba(255, 255, 255, 0.4);
+}
+.dp-tile {
+  position: relative;
+  display: block;
+  width: var(--dock-tile);
+  height: var(--dock-tile);
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.dp-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+button.dp-tile { cursor: pointer; }
+button.dp-tile:active img { filter: brightness(0.82); }
+.dp-tile[data-running="true"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--dock-tile) * -0.12);
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+}
+.dp-dock-label {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 11px 7px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font: 400 12px/1.2 var(--font-text);
+  color: #fff;
+  background: rgba(30, 30, 36, 0.62);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+}
+.dp-dock-label strong { font-weight: 600; font-size: 13px; }
+button.dp-tile:hover .dp-dock-label,
+button.dp-tile:focus-visible .dp-dock-label { opacity: 1; }
+/* macOS hides a tile's label while its Pop is open. */
+button.dp-tile[aria-pressed="true"] .dp-dock-label { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dp-pop-in { animation: none; }
+}
+
+/* Narrow screens: the copy first, then a desktop below it with just the Pops
+   in its Dock. */
+@media (max-width: 899px) {
+  .dp-hero {
+    height: auto;
+    min-height: 0;
+    padding-top: var(--menubar-h);
+  }
+  .dp-hero-copy {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    display: block;
+    padding: 40px 20px 0;
+  }
+  .dp-hero-side { padding-top: 0; margin-top: 22px; }
+  .dp-hero-title { font-size: clamp(40px, 11vw, 64px); }
+  .dp-hero-body { font-size: 17px; }
+  .dp-stage {
+    position: relative;
+    inset: auto;
+    height: clamp(500px, 128vw, 620px);
+    --pop-top: 20px;
+    --pop-max-scale: 0.86;
+  }
+  .dp-tile--app { display: none; }
+  .dp-dock-divider { display: none; }
+  .dp-hero { padding-bottom: 4px; }
+  .dp-hero { --dock-tile: clamp(40px, 11vw, 50px); }
+}
+
+/* ── A scene: one feature on its own desktop ───────────────────────────── */
+
+.dp-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: 10px;
+  border-radius: 32px 32px 0 0;
+  padding: clamp(72px, 12vh, 140px) var(--gutter) clamp(72px, 12vh, 120px);
+}
+.dp-scene-copy { max-width: 600px; }
+.dp-scene-title { font-size: clamp(40px, 4.6vw, 72px); }
+.dp-scene-body {
+  margin: 22px 0 0;
+  max-width: 44ch;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--on-wall-2);
+}
+.dp-scene-body + .dp-scene-body { margin-top: 10px; }
+
+.dp-fx-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(16px, 2.2vw, 32px);
+  margin-top: clamp(48px, 8vh, 88px);
+}
+.dp-fx-item { margin: 0; text-align: center; }
+.dp-fx-item figcaption {
+  margin-top: 14px;
+  font: 600 14px/1.2 var(--font-text);
+  color: var(--on-wall);
+}
+@media (max-width: 899px) {
+  .dp-scene { border-radius: 24px 24px 0 0; }
+  .dp-scene-body { font-size: 17px; }
+  .dp-fx-row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 8px;
+    scrollbar-width: none;
+  }
+  .dp-fx-row::-webkit-scrollbar { display: none; }
+  .dp-fx-item { scroll-snap-align: center; flex: none; }
+}
+
+/* ── Sections ──────────────────────────────────────────────────────────── */
+
+/* A soft shade behind the copy, so white type holds on a light wallpaper. */
+.dp-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 65% at 12% 18%, rgba(14, 4, 34, 0.34), transparent 72%);
+}
+/* Quantum Foam is pale: darkened so the white type reads (about 4.8:1 at the copy). */
+#themes .dp-wallpaper { filter: brightness(0.55) saturate(1.1); }
+/* Strawberry and Lime are bright: darkened until the white copy reads (body text 4.5:1, the headline 3:1+). */
+.dp-everyday .dp-wallpaper { filter: brightness(0.66) saturate(1.05); }
+.dp-pricing .dp-wallpaper { filter: brightness(0.58) saturate(1.1); }
+.dp-scene-body p { margin: 0; }
+.dp-scene-note {
+  margin: 14px 0 0;
+  max-width: 48ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--on-wall-2);
+}
+.dp-scene--side {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  min-height: min(92vh, 900px);
+}
+.dp-scene-visual { position: relative; }
+.dp-scene--stack .dp-scene-visual { margin-top: clamp(40px, 6vh, 72px); }
+.dp-scene figure { margin: 0; }
+.dp-scene figcaption {
+  margin-top: 12px;
+  font: 600 14px/1.3 var(--font-text);
+  color: var(--on-wall);
+}
+.dp-scene img { -webkit-user-drag: none; user-select: none; }
+
+/* The trust row: plain facts, between the hero and the first desktop. */
+.dp-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 32px;
+  margin: 0;
+  padding: 22px var(--gutter) 12px;
+  list-style: none;
+  font: 500 14px/1.3 var(--font-text);
+  color: rgba(255, 255, 255, 0.8);
+}
+.dp-trust li { display: inline-flex; align-items: center; gap: 8px; }
+.dp-trust svg { color: #7ee2a0; flex: none; }
+
+/* Apps, files, and folders */
+.dp-files { position: relative; padding-bottom: 40px; }
+.dp-files-ql img {
+  display: block;
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  margin-left: auto;
+  filter: drop-shadow(0 24px 40px rgba(60, 20, 0, 0.35));
+}
+.dp-files-ql figcaption { text-align: right; }
+.dp-files-drill {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: clamp(170px, 18vw, 250px);
+}
+.dp-files-drill img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 22px 34px rgba(60, 20, 0, 0.4));
+}
+
+/* Endlessly customizable */
+.dp-themes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+.dp-themes-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 540px;
+}
+.dp-themes-pop {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 26px 44px rgba(20, 40, 0, 0.38));
+  animation: dp-fade 0.35s ease-out both;
+}
+@keyframes dp-fade { from { opacity: 0; transform: scale(0.985); } }
+.dp-themes-controls { display: grid; gap: 22px; }
+.dp-segmented {
+  display: inline-flex;
+  justify-self: start;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.24);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+.dp-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: #fff;
+  font: 600 13px/1 var(--font-text);
+  cursor: pointer;
+}
+.dp-segment[aria-checked="true"] { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18); }
+.dp-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px 10px;
+}
+.dp-swatch {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.dp-swatch-tile {
+  display: grid;
+  grid-template-columns: repeat(3, 7px);
+  gap: 5px 6px;
+  place-content: center;
+  width: min(76px, 100%);
+  aspect-ratio: 76 / 52;
+  border-radius: 11px;
+  border: 2.5px solid transparent;
+  background: var(--fill) padding-box, var(--border) border-box;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+.dp-swatch-tile i { width: 7px; height: 7px; border-radius: 2px; background: currentColor; }
+.dp-swatch[aria-checked="true"] .dp-swatch-tile { outline: 3px solid #fff; outline-offset: 3px; }
+.dp-swatch-name { font: 600 12px/1.2 var(--font-text); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35); }
+
+/* Just ask */
+/* The copy is short here: the visual column takes more, so the Pop stays near its Mac size. */
+@media (min-width: 900px) {
+  #assistant.dp-scene--side { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); }
+}
+/* The Pop and the chat side by side; the Pop's stage takes what the chat leaves. */
+.dp-assistant {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 453px) clamp(250px, 21vw, 300px);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+}
+/* The stage fits the largest state; each state sits on its Dock-side edge, centred, as the Pop does. */
+.dp-assistant-pop { position: relative; width: 100%; }
+.dp-assistant-pop > img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: auto;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 26px 40px rgba(40, 10, 0, 0.4));
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.dp-assistant-pop > img[data-shown="true"] { opacity: 1; }
+.dp-chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  height: 440px;
+  border-radius: 18px;
+  color: var(--ink);
+  background: rgba(250, 250, 252, 0.92);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  backdrop-filter: blur(30px) saturate(1.8);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 20px 44px rgba(40, 10, 0, 0.32);
+  font: 400 13px/1.4 var(--font-text);
+  overflow: hidden;
+}
+.dp-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 16px 11px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+/* Newest at the bottom; older messages scroll up out of view, as in the app. */
+.dp-chat-log { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; padding: 14px 16px; overflow: hidden; }
+.dp-chat-exchange { display: flex; flex-direction: column; gap: 8px; flex: none; }
+.dp-chat-log p { margin: 0; animation: dp-fade 0.3s ease-out both; }
+.dp-chat-ask {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: 7px 11px;
+  border-radius: 14px;
+  background: #e8e8ed;
+}
+.dp-chat-thinking { display: flex; gap: 4px; padding: 6px 2px; }
+.dp-chat-thinking i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9a9aa2;
+  animation: dp-dot 1s ease-in-out infinite;
+}
+.dp-chat-thinking i:nth-child(2) { animation-delay: 0.15s; }
+.dp-chat-thinking i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dp-dot { 50% { opacity: 0.25; transform: translateY(-2px); } }
+.dp-chat-changed {
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: #efeff3;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.dp-chat-undo { display: inline-flex; align-items: center; gap: 5px; color: var(--sky); font-size: 12px; font-weight: 500; }
+.dp-chat-input {
+  margin: 0 12px 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  color: #8a8f99;
+}
+.dp-replay {
+  position: absolute;
+  right: 0;
+  bottom: -46px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  color: #fff;
+  font: 600 13px/1 var(--font-text);
+  cursor: pointer;
+}
+
+/* A Pop for every part of your day */
+.dp-everyday-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 26px;
+  margin: clamp(40px, 6vh, 64px) calc(var(--gutter) * -1) 0;
+  padding: 0 var(--gutter) 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.dp-everyday-row::-webkit-scrollbar { display: none; }
+.dp-everyday-item { flex: none; margin: 0; scroll-snap-align: start; text-align: center; }
+
+/* Plain sections, on the ground between desktops */
+.dp-plain { padding: clamp(80px, 12vh, 130px) var(--gutter); }
+.dp-plain-inner { max-width: 880px; margin: 0 auto; }
+.dp-plain-title { font-size: clamp(36px, 4vw, 60px); }
+.dp-plain-body { margin: 18px 0 0; max-width: 52ch; font-size: 19px; line-height: 1.5; color: rgba(255, 255, 255, 0.75); }
+.dp-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Pricing */
+.dp-pricing-copy { text-align: center; max-width: none; }
+.dp-plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 400px));
+  justify-content: center;
+  gap: 24px;
+  margin-top: 44px;
+}
+.dp-window {
+  border-radius: 20px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  backdrop-filter: blur(30px) saturate(1.6);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 24px 50px rgba(60, 20, 0, 0.3);
+}
+.dp-plan { padding: 26px 28px 28px; }
+.dp-plan h3 { margin: 0; font: 700 15px/1 var(--font-text); color: var(--ink-2); }
+.dp-plan--premium h3 { color: #c2410c; }
+.dp-plan-price { margin: 12px 0 0; font: 800 40px/1 var(--font-display); letter-spacing: -0.02em; }
+.dp-plan-price span { font: 500 15px/1 var(--font-text); letter-spacing: 0; color: var(--ink-2); }
+.dp-plan-price .dp-plan-once { font: 700 22px/1.2 var(--font-display); color: var(--ink); }
+.dp-plan-line { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
+.dp-plan ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; font-size: 15px; line-height: 1.35; }
+.dp-plan li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; }
+.dp-plan li::before { content: "✓"; color: #16a34a; font-weight: 700; }
+.dp-plan--premium li::before { color: #ea580c; }
+.dp-pricing-cta { display: flex; justify-content: center; margin-top: 30px; }
+
+/* FAQ */
+.dp-faq { margin-top: 40px; display: grid; gap: 10px; }
+.dp-faq details { border-radius: 14px; background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.dp-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  list-style: none;
+  cursor: pointer;
+  font: 600 17px/1.35 var(--font-text);
+}
+.dp-faq summary::-webkit-details-marker { display: none; }
+.dp-faq summary svg { flex: none; transition: transform 0.2s; opacity: 0.6; }
+.dp-faq details[open] summary svg { transform: rotate(180deg); }
+.dp-faq details p { margin: 0; padding: 0 20px 20px; font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.72); max-width: 70ch; }
+
+/* Support and footer */
+.dp-footer { padding: 40px var(--gutter) 36px; color: rgba(255, 255, 255, 0.7); }
+.dp-footer-support { max-width: 880px; margin: 0 auto 64px; text-align: center; }
+.dp-footer-support h2 { font-size: clamp(32px, 3.4vw, 48px); color: #fff; }
+.dp-footer-support p { margin: 12px 0 22px; font-size: 18px; }
+.dp-footer-mail {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.dp-footer-mail:hover { background: rgba(255, 255, 255, 0.16); }
+.dp-footer-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+}
+.dp-footer-base nav { display: flex; gap: 22px; }
+.dp-footer-base a { color: inherit; text-decoration: none; }
+.dp-footer-base a:hover { color: #fff; }
+
+@media (max-width: 899px) {
+  .dp-scene::before {
+    background: linear-gradient(180deg, rgba(14, 4, 34, 0.5), rgba(14, 4, 34, 0.18) 45%, transparent 70%);
+  }
+  .dp-scene--side { grid-template-columns: 1fr; min-height: 0; }
+  .dp-scene--side .dp-scene-visual { margin-top: 36px; }
+  .dp-files-drill { position: relative; left: auto; bottom: auto; margin-top: 20px; }
+  .dp-themes { grid-template-columns: 1fr; }
+  .dp-themes-stage { height: 440px; }
+  .dp-themes-pop { max-height: 100%; width: auto; }
+  .dp-plans { grid-template-columns: 1fr; }
+}
+@media (max-width: 639px) {
+  .dp-assistant { grid-template-columns: minmax(0, 453px); }
+  .dp-chat { justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dp-themes-pop, .dp-chat-log p { animation: none; }
+  .dp-chat-thinking i { animation: none; }
+  .dp-assistant-pop > img { transition: none; }
+}
