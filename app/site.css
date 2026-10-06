@@ -753,6 +753,17 @@ button.dp-tile[aria-pressed="true"] .dp-dock-label { opacity: 0; }
 .dp-plan-price .dp-plan-once { font: 700 22px/1.2 var(--font-display); color: var(--ink); }
 .dp-plan-line { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
 .dp-plan ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; font-size: 15px; line-height: 1.35; }
+/* Premium for the direct download: bought on Lemon Squeezy, set apart from the plan's list. */
+.dp-plan-direct {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.dp-plan-direct a { color: #c2410c; font-weight: 600; text-decoration: none; }
+.dp-plan-direct a:hover { text-decoration: underline; }
 .dp-plan li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; }
 .dp-plan li::before { content: "✓"; color: #16a34a; font-weight: 700; }
 .dp-plan--premium li::before { color: #ea580c; }

@@ -121,6 +121,9 @@ export const es: Dict = {
       "Fijar un Pop, Abrir todo y más formas de ordenar",
       "El Asistente (macOS 27) y las sugerencias de Apple Intelligence (macOS 26)",
     ],
+    directLead: "¿Usas la descarga directa?",
+    directLink: "Compra Premium",
+    directNote: "Recibirás tu clave de licencia por correo.",
   },
   faq: {
     title: "Preguntas y respuestas.",
