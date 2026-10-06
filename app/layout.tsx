@@ -1,16 +1,33 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Nunito } from "next/font/google";
 import QAOverlay from "./QAOverlay";
 import "./globals.css";
+import "./site.css";
+
+// Headlines are SF Pro Rounded, the face of the App Store screenshots. Off
+// Apple platforms, where ui-rounded has nothing to resolve to, Nunito stands
+// in. It's self-hosted by next/font and not preloaded, so Macs never fetch it.
+const rounded = Nunito({
+  subsets: ["latin", "latin-ext"],
+  weight: ["800"],
+  variable: "--font-rounded-fallback",
+  preload: false,
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  // Absolute base so OpenGraph/Twitter images (e.g. "/preview.png") resolve to
+  // Absolute base so OpenGraph/Twitter images (e.g. "/og-6.png") resolve to
   // real URLs in social/iMessage cards instead of localhost.
   metadataBase: new URL("https://dockpops.com"),
-  title: "DockPops — The Missing App Launcher for Your Dock",
+  title: "DockPops — Custom Folders for Your Mac Dock",
   description:
-    "Swipeable app groups in your Dock. Organize apps, files, and folders into named Pops. SmartyPops suggests groups for you. Native Mac app, no tracking, fully sandboxed.",
+    "Beautiful custom folders for your Dock. Group apps, files, and links into Pops, then theme each one, down to live PopFX backgrounds and a matching Dock icon. Free to download; Premium is one purchase, no subscription.",
   alternates: { canonical: "/" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#5b2bc4",
 };
 
 export default function RootLayout({
@@ -19,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={rounded.variable}>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-DTCD5Q6KTJ"
         strategy="afterInteractive"
@@ -32,10 +49,7 @@ export default function RootLayout({
           gtag('config', 'G-DTCD5Q6KTJ');
         `}
       </Script>
-      <body
-        className="antialiased bg-black"
-        style={{ fontFamily: "ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, system-ui, sans-serif" }}
-      >
+      <body className="dp">
         {children}
         {/* Dev-only QA annotation tool — never mounts in production (no
             global listeners / localStorage shipped to visitors). */}
