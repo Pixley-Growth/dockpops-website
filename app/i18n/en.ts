@@ -4,6 +4,19 @@
 
 export const en = {
   lang: "en",
+  // The page's <title> and search/social description.
+  meta: {
+    title: "DockPops — Custom Folders for Your Mac Dock",
+    description:
+      "Beautiful custom folders for your Dock. Group apps, files, and links into Pops, then make each one yours with themes, live PopFX backgrounds, and matching Dock icons. No subscription.",
+  },
+  // Names for screen readers (not shown).
+  a11y: {
+    site: "Site",
+    dock: "Dock",
+    footer: "Footer",
+    facts: "DockPops at a glance",
+  },
   menu: {
     features: "Features",
     pricing: "Pricing",
@@ -162,6 +175,7 @@ export const en = {
     rights: "Pixley Growth LLC. All rights reserved.",
     privacy: "Privacy Policy",
     support: "Support",
+    language: "Language",
   },
   download: {
     appStore: "Download on the Mac App Store",
