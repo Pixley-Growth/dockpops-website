@@ -181,6 +181,13 @@ export const en = {
     appStore: "Download on the Mac App Store",
     direct: "Direct Download",
   },
+  // The analytics consent banner (shown in Europe) and the footer link that reopens it.
+  consent: {
+    text: "dockpops.com uses Google Analytics to count visits and see which pages are read. Allow analytics cookies?",
+    allow: "Allow",
+    decline: "Decline",
+    settings: "Cookie settings",
+  },
 };
 
 export type Dict = typeof en;

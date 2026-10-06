@@ -179,4 +179,11 @@ export const zhHans: Dict = {
     appStore: "在 Mac App Store 下载",
     direct: "直接下载",
   },
+  // The analytics consent banner (shown in Europe) and the footer link that reopens it.
+  consent: {
+    text: "dockpops.com 使用 Google Analytics 统计访问量并了解哪些页面被阅读。允许使用分析 Cookie 吗？",
+    allow: "允许",
+    decline: "拒绝",
+    settings: "Cookie 设置",
+  },
 };

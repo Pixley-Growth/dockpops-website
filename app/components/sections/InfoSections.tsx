@@ -3,6 +3,7 @@ import type { Dict } from "../../i18n/en";
 import { popBySlug } from "../../pops";
 import { PREMIUM_PRICE } from "../../config";
 import { LOCALES, homeHref } from "../../i18n/locales";
+import { ConsentSettingsLink } from "../Consent";
 import Downloads from "../Downloads";
 import LivePop from "../LivePop";
 import PopClip from "../PopClip";
@@ -164,6 +165,7 @@ export function SiteFooter({ t }: { t: Dict }) {
         <nav aria-label={t.a11y.footer}>
           <a href="/privacy">{t.footer.privacy}</a>
           <a href="#support">{t.footer.support}</a>
+          <ConsentSettingsLink label={t.consent.settings} />
         </nav>
         <nav className="dp-footer-langs" aria-label={t.footer.language}>
           {LOCALES.map((l) => (

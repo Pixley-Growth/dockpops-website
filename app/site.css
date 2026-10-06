@@ -827,3 +827,48 @@ button.dp-tile[aria-pressed="true"] .dp-dock-label { opacity: 0; }
   .dp-chat-thinking i { animation: none; }
   .dp-assistant-pop > img { transition: none; }
 }
+
+/* Analytics consent: a small white window in the bottom-left corner, like the site's other
+   windows. Allow and Decline are the same button, so neither choice is pushed. */
+.dp-consent {
+  position: fixed;
+  z-index: 50;
+  left: 16px;
+  bottom: 16px;
+  width: min(360px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 16px 16px 14px;
+  border-radius: 16px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  backdrop-filter: blur(30px) saturate(1.6);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 18px 40px rgba(20, 0, 40, 0.3);
+  font: 400 14px/1.45 var(--font-text);
+}
+.dp-consent p { margin: 0; }
+.dp-consent a { color: var(--sky); text-decoration: none; }
+.dp-consent a:hover { text-decoration: underline; }
+.dp-consent-actions { display: flex; gap: 8px; margin-top: 12px; }
+.dp-consent-actions button {
+  flex: 1;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.07);
+  font: 600 14px/1.2 var(--font-text);
+  cursor: pointer;
+}
+.dp-consent-actions button:hover { background: rgba(0, 0, 0, 0.12); }
+
+/* "Cookie settings" reads as one of the footer's links. */
+.dp-consent-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.dp-footer-base .dp-consent-link:hover { color: #fff; }

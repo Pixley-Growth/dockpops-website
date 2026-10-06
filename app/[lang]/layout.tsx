@@ -1,4 +1,5 @@
 import Document from "../Document";
+import { DICTS } from "../i18n/dictionaries";
 import { LOCALES } from "../i18n/locales";
 import { siteMetadata, siteViewport } from "../i18n/metadata";
 
@@ -20,6 +21,5 @@ export default async function LocaleLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const locale = LOCALES.find((l) => l.path === lang) ?? LOCALES[0];
-  return <Document lang={locale.lang}>{children}</Document>;
+  return <Document t={DICTS[lang]}>{children}</Document>;
 }
